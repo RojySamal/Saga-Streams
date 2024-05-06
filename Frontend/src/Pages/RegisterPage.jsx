@@ -1,36 +1,3 @@
-// import { useState } from "react";
-
-// export default function RegisterPage() {
-//   const [username, setUsername] = useState("");
-//   const [password, setPassword] = useState("");
-//   async function register(ev) {
-//     ev.preventDefault();
-//     await fetch("http://localhost:4000/register", {
-//       method: "POST",
-//       body: JSON.stringify({ username, password }),
-//       headers: { "Content-Type": "application/json" },
-//     });
-//   }
-//   return (
-//     <form className="register" onSubmit={register}>
-//       <h1>REGISTER</h1>
-//       <input
-//         type="text"
-//         placeholder="username"
-//         value={username}
-//         onChange={(ev) => setUsername(ev.target.value)}
-//       />
-//       <input
-//         type="password"
-//         placeholder="password"
-//         value={password}
-//         onChange={(ev) => setPassword(ev.target.value)}
-//       />
-//       <button>Register</button>
-//     </form>
-//   );
-// }
-
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -45,6 +12,8 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link } from "react-router-dom";
+import { useSignup } from "../hooks/useSignup";
+import { useState,useEffect } from "react";
 
 function Copyright(props) {
   return (
@@ -69,10 +38,44 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function RegisterPage() {
+
+  //Destructuring the SignUp Hook
+  const { signup, isLoading, error } = useSignup();
+
+  // collecting data using useState 
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loggedStatus, setLoggedStatus] = useState(false);
+
+  const handleFirstNameChange = (event) => {
+    setFirstName(event.target.value);
+  };
+
+  const handleLastNameChange = (event) => {
+    setLastName(event.target.value);
+  };
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const user = localStorage.getItem("user");
+  useEffect(() => {
+    setLoggedStatus(user === null);
+  }, [user]);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
+      firstname:data.get("firstName"),      
+      lastname:data.get("lastName"),      
       email: data.get("email"),
       password: data.get("password"),
     });
