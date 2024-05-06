@@ -13,7 +13,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import { useSignup } from "../hooks/useSignup";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 
 function Copyright(props) {
   return (
@@ -38,11 +38,10 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function RegisterPage() {
-
   //Destructuring the SignUp Hook
   const { signup, isLoading, error } = useSignup();
 
-  // collecting data using useState 
+  // collecting data using useState
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -70,15 +69,18 @@ export default function RegisterPage() {
     setLoggedStatus(user === null);
   }, [user]);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      firstname:data.get("firstName"),      
-      lastname:data.get("lastName"),      
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    try {
+      const response = await signup(firstName, lastName, email, password);
+      if (!response) {
+        alert('Registration Failed',error);
+      } else {
+        alert("Registration!!! Successful");
+      }
+    } catch (err) {
+      alert(err);
+    }
   };
 
   return (
@@ -115,6 +117,8 @@ export default function RegisterPage() {
                   id="firstName"
                   label="First Name"
                   autoFocus
+                  value={firstName}
+                  onChange={handleFirstNameChange}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -125,6 +129,8 @@ export default function RegisterPage() {
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
+                  value={lastName}
+                  onChange={handleLastNameChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -135,6 +141,8 @@ export default function RegisterPage() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  value={email}
+                  onChange={handleEmailChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -146,6 +154,8 @@ export default function RegisterPage() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  value={password}
+                  onChange={handlePasswordChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -162,6 +172,7 @@ export default function RegisterPage() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              disabled={isLoading}
             >
               Sign Up
             </Button>
