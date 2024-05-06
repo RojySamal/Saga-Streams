@@ -1,9 +1,9 @@
 import express from "express";
-import mongoose from "mongoose";
 import morgan from "morgan";
 import cors from "cors";
 import dotenv from "dotenv";
 import { connectDB } from "./config/db.js";
+import authRouter from "./routes/auth.routes.js";
 
 dotenv.config();
 
@@ -16,6 +16,8 @@ app.use(morgan("dev"));
 
 
 connectDB();
+
+app.use("/auth",authRouter)
 
 app.get("/", (req, res) => {
     res.send("<h1>hii welcome to ecommerece webapp</h1>");
