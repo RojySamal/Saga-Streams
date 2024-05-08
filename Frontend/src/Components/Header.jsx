@@ -3,10 +3,13 @@ import PropTypes from "prop-types";
 import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-
+import { useNavigate } from "react-router-dom";
 function Header(props) {
   const { title } = props;
-
+  const navigate = useNavigate()
+  const handleTitleClick = () => {
+    navigate("/"); 
+  };
   return (
     <React.Fragment>
       <Toolbar sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -16,7 +19,8 @@ function Header(props) {
           color="inherit"
           align="left"
           noWrap
-          sx={{ flex: 1 }}
+          sx={{ flex: 1, cursor: "pointer" }} 
+          onClick={handleTitleClick} 
         >
           {title}
         </Typography>

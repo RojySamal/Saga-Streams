@@ -5,11 +5,12 @@ import Footer from "../Components/Footer";
 const Layout = () => {
   return (
     <div>
-      <Header />
+      <Header title="Saga Streams"/>
       <main className="container py-3">
         <Outlet />
       </main>
-      <Footer />
+      <Footer title="Footer"
+        description="Something here to give the footer a purpose!"/>
     </div>
   );
 };
