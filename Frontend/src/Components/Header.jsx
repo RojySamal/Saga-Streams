@@ -6,9 +6,9 @@ import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 function Header(props) {
   const { title } = props;
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleTitleClick = () => {
-    navigate("/"); 
+    navigate("/");
   };
   return (
     <React.Fragment>
@@ -19,8 +19,8 @@ function Header(props) {
           color="inherit"
           align="left"
           noWrap
-          sx={{ flex: 1, cursor: "pointer" }} 
-          onClick={handleTitleClick} 
+          sx={{ flex: 1, cursor: "pointer" }}
+          onClick={handleTitleClick}
         >
           {title}
         </Typography>

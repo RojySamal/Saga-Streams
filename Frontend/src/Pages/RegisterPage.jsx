@@ -15,26 +15,6 @@ import { Link } from "react-router-dom";
 import { useSignup } from "../hooks/useSignup";
 import { useState, useEffect } from "react";
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" to="/">
-        MyBlog
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
-// TODO remove, this demo shouldn't need to reset the theme.
-
 const defaultTheme = createTheme();
 
 export default function RegisterPage() {
@@ -74,7 +54,7 @@ export default function RegisterPage() {
     try {
       const response = await signup(firstName, lastName, email, password);
       if (!response) {
-        alert('Registration Failed',error);
+        alert("Registration Failed", error);
       } else {
         alert("Registration!!! Successful");
       }
@@ -185,7 +165,6 @@ export default function RegisterPage() {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
   );
