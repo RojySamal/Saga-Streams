@@ -7,13 +7,17 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import NestCamWiredStandIcon from "@mui/icons-material/NestCamWiredStand";
 
-const pages = ["Home", "About", "Blog"];
+const pages = [
+  { name: "Home", url: "/" },
+  { name: "About", url: "/about" },
+  { name: "Blog", url: "/blogs" },
+];
+
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function Header() {
@@ -56,7 +60,7 @@ function Header() {
             variant="h6"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -100,8 +104,10 @@ function Header() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page.url} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center" href={page.url}>
+                    {page.name}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -113,7 +119,7 @@ function Header() {
             variant="h5"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="/"
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -130,22 +136,25 @@ function Header() {
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
-                key={page}
+                key={page.url}
+                href={page.url}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "black", display: "block" }}
               >
-                {page}
+                {page.name}
               </Button>
             ))}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip>
-              <Button href="/login">SignIn</Button>
-              <Button href="/register">SignUp</Button>
-              {/* <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <>
+                <Button href="/login">SignIn</Button>
+                <Button href="/register">SignUp</Button>
+                {/* <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
               </IconButton> */}
+              </>
             </Tooltip>
             <Menu
               sx={{ mt: "45px" }}

@@ -9,7 +9,7 @@ const Layout = () => {
       <main className="container py-3">
         <Outlet />
       </main>
-      <Footer description="Something here to give the footer a purpose!" />
+      <Footer title ="SagaStreams" description="Something here to give the footer a purpose!" />
     </div>
   );
 };

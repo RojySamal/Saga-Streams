@@ -66,7 +66,6 @@ export default function Blog() {
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
       <Container maxWidth="100%">
-        {/* <Header title="Saga Streams" /> */}
         <main>
           <MainFeaturedPost post={mainFeaturedPost} />
           <Grid container spacing={4}>
