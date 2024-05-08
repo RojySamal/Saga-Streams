@@ -1,4 +1,5 @@
 import React, { createContext, useReducer } from 'react';
+import { useEffect } from 'react';
 
 const initialState = {
   user: null,
@@ -33,6 +34,15 @@ export const AuthContextProvider = ({ children }) => {
   const logout = () => {
     dispatch({ type: 'LOGOUT' });
   };
+
+  useEffect(() => {
+    // Update the user state from localStorage on component mount
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    if (storedUser) {
+      login(JSON.stringify(storedUser))
+      //dispatch({ type: 'LOGIN', payload: storedUser });
+    }
+  }, []);
 
   console.log('AuthContext state: ',state);
 

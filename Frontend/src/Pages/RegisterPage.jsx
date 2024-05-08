@@ -11,13 +11,16 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { useSignup } from "../hooks/useSignup";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const defaultTheme = createTheme();
 
 export default function RegisterPage() {
+
+  const navigate = useNavigate();
   //Destructuring the SignUp Hook
   const { signup, isLoading, error } = useSignup();
 
@@ -57,6 +60,8 @@ export default function RegisterPage() {
         alert("Registration Failed", error);
       } else {
         alert("Registration!!! Successful");
+        navigate("/")
+        
       }
     } catch (err) {
       alert(err);

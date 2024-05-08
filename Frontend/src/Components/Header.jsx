@@ -11,6 +11,11 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import NestCamWiredStandIcon from "@mui/icons-material/NestCamWiredStand";
+import { Avatar } from "@mui/material";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useLogout } from "../hooks/useLogout";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const pages = [
   { name: "Home", url: "/" },
@@ -21,6 +26,18 @@ const pages = [
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function Header() {
+
+  const navigate = useNavigate();
+
+  const {
+    state: { user },
+  } = useAuthContext();
+  const { logmeout } = useLogout();
+
+  const handleLogout = () => {
+    logmeout();
+  };
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -37,6 +54,11 @@ function Header() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleMenuItemClick = (url) => {
+    navigate(url);
+    handleCloseNavMenu(); // Optionally close the menu after navigation
   };
 
   return (
@@ -105,7 +127,7 @@ function Header() {
             >
               {pages.map((page) => (
                 <MenuItem key={page.url} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center" href={page.url}>
+                  <Typography textAlign="center" onClick={() => handleMenuItemClick(page.url)}>
                     {page.name}
                   </Typography>
                 </MenuItem>
@@ -148,13 +170,16 @@ function Header() {
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip>
-              <>
-                <Button href="/login">SignIn</Button>
-                <Button href="/register">SignUp</Button>
-                {/* <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton> */}
-              </>
+              {!user ? (
+                <>
+                  <Button href="/login">SignIn</Button>
+                  <Button href="/register">SignUp</Button>
+                </>
+              ) : (
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                </IconButton>
+              )}
             </Tooltip>
             <Menu
               sx={{ mt: "45px" }}
@@ -174,7 +199,12 @@ function Header() {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                  <Typography
+                    textAlign="center"
+                    onClick={setting === "Logout" ? handleLogout : undefined}
+                  >
+                    {setting}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>

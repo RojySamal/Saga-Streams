@@ -4,7 +4,6 @@ import UserDataModel from "../models/user.model.js";
 import {
   hashPassword,
   comparePassword,
-  compareUserType,
 } from "../helpers/auth.helper.js";
 
 const createToken = (_id) => {
@@ -49,3 +48,54 @@ export const signUpUser = async (req, res) => {
     }
   }
 };
+
+export const logInUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(404).send({
+        sucess: false,
+        message: "All parameters are Needed!",
+      });
+    }
+
+    const user = await UserDataModel.findOne({ email });
+    if (!user) {
+      return res
+        .status(401)
+        .send({
+          success: false,
+          message: "User Doesn't Exists!! Please SignUP",
+        });
+    }
+
+    const passwordMatch = await comparePassword(password, user.password);
+    if (!passwordMatch) {
+      return res
+        .status(401)
+        .send({ success: false, message: "Invalid credentials" });
+    }
+
+    const token = createToken(user._id);
+
+    res.status(200).send({
+      success: true,
+      message: "Login Sucessful",
+      user: {
+        firstname: user.name.firstname,
+        lastname: user.name.lastname,
+        email: user.email,
+      },
+      token,
+    });
+  } catch (error) {
+    console.error("Login error:", error);
+    res.status(500).send({
+      success: false,
+      message: "Error in Login",
+      error,
+    });
+  }
+};
+
+

@@ -13,17 +13,48 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link } from "react-router-dom";
+import { useLogin } from "../hooks/useLogin";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+
 
 const defaultTheme = createTheme();
 
 export default function LoginPage() {
-  const handleSubmit = (event) => {
+
+
+  const navigate = useNavigate();
+  const {logmein,isLoginLoading,loginError} = useLogin();
+
+
+  const [email,setEmail] = useState("");
+  const [password,setPassword] = useState("");
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+
+    try{
+      const response = await logmein(email,password);
+      if(!response){
+        alert("Login Failed! Bad Credentials",loginError)        
+      }    
+      else
+      {
+        alert("Login Successful");
+        navigate("/");
+      }
+    }catch(err){
+      alert(err)
+    }
   };
 
   return (
@@ -58,6 +89,8 @@ export default function LoginPage() {
               label="Email Address"
               name="email"
               autoComplete="email"
+              value={email}
+              onChange={handleEmailChange}
               autoFocus
             />
             <TextField
@@ -68,6 +101,8 @@ export default function LoginPage() {
               label="Password"
               type="password"
               id="password"
+              value={password}
+              onChange={handlePasswordChange}
               autoComplete="current-password"
             />
             <FormControlLabel
@@ -79,6 +114,7 @@ export default function LoginPage() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              disabled={isLoginLoading}
             >
               Sign In
             </Button>
