@@ -31,6 +31,8 @@ function Header() {
   const {
     state: { user },
   } = useAuthContext();
+  const firstname = user ? JSON.parse(user).user.firstname : ''; 
+  
   const { logmeout } = useLogout();
 
   const handleLogout = () => {
@@ -179,7 +181,7 @@ function Header() {
                 </>
               ) : (
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <Avatar alt={firstname} src="/static/images/avatar/2.jpg" />
                 </IconButton>
               )}
             </Tooltip>
