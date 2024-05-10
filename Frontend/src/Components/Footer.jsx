@@ -1,16 +1,17 @@
 import * as React from "react";
-import PropTypes from "prop-types";
+import CssBaseline from "@mui/material/CssBaseline";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import { Link } from "react-router-dom";
+import Container from "@mui/material/Container";
+import Link from "@mui/material/Link";
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="text.secondary" align="center">
+    <Typography variant="body2" color="text.secondary">
       {"Copyright © "}
-      <Link color="inherit" to="/">
-        SagaStreams
+      <Link color="inherit" href="/">
+        SagaStream
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -18,32 +19,31 @@ function Copyright() {
   );
 }
 
-function Footer(props) {
-  const { description, title } = props;
+const defaultTheme = createTheme();
 
+export default function Footer() {
   return (
-    <Box component="footer" sx={{ bgcolor: "background.paper", py: 6 }}>
-      <Container maxWidth="lg">
-        <Typography variant="h6" align="center" gutterBottom>
-          {title}
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          align="center"
-          color="text.secondary"
-          component="p"
-        >
-          {description}
-        </Typography>
-        <Copyright />
-      </Container>
-    </Box>
+    <ThemeProvider theme={defaultTheme}>
+      <CssBaseline />
+      <Box
+        component="footer"
+        sx={{
+          py: 3,
+          mt: "auto",
+          textAlign: "center",
+          backgroundColor: (theme) =>
+            theme.palette.mode === "light"
+              ? theme.palette.grey[200]
+              : theme.palette.grey[800],
+        }}
+      >
+        <Container maxWidth="xl">
+          <Typography variant="body1">
+            My sticky footer can be found here.
+          </Typography>
+          <Copyright />
+        </Container>
+      </Box>
+    </ThemeProvider>
   );
 }
-
-Footer.propTypes = {
-  description: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-};
-
-export default Footer;

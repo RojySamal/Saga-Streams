@@ -26,7 +26,6 @@ const pages = [
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function Header() {
-
   const navigate = useNavigate();
 
   const {
@@ -127,7 +126,10 @@ function Header() {
             >
               {pages.map((page) => (
                 <MenuItem key={page.url} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center" onClick={() => handleMenuItemClick(page.url)}>
+                  <Typography
+                    textAlign="center"
+                    onClick={() => handleMenuItemClick(page.url)}
+                  >
                     {page.name}
                   </Typography>
                 </MenuItem>
