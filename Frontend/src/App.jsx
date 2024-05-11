@@ -8,6 +8,8 @@ import RegisterPage from "./Pages/RegisterPage";
 import Layout from "./Pages/Layout";
 import { Routes, Route } from "react-router-dom";
 import CreatePost from "./Pages/CreatePost";
+import AboutPage from "./Pages/AboutPage";
+import SagaBlogs from "./Pages/SagaBlogs";
 
 function App() {
   return (
@@ -16,7 +18,9 @@ function App() {
         <Route index element={<HomePage />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
-        <Route path="about" element={<CreatePost />} />
+        <Route path="about" element={<AboutPage />} />
+        <Route path="pensaga" element={<CreatePost />} />
+        <Route path="readsaga" element={<SagaBlogs/>}/>
       </Route>
     </Routes>
   );

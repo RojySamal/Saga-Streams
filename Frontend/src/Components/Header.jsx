@@ -20,7 +20,8 @@ import { useAuthContext } from "../hooks/useAuthContext";
 const pages = [
   { name: "Home", url: "/" },
   { name: "About", url: "/about" },
-  { name: "Blog", url: "/blogs" },
+  { name: "Blog", url: "/readsaga" },
+  { name: "Write", url: "/pensaga" },
 ];
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
