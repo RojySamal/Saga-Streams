@@ -22,6 +22,7 @@ const pages = [
   { name: "About", url: "/about" },
   { name: "Blog", url: "/readsaga" },
   { name: "Write", url: "/pensaga" },
+  { name: "Upload", url: "/uploadimg" },
 ];
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];

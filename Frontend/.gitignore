@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Environment VAriables
+.env 
+
+# IMP Credentials
+firebaseConfig.js 

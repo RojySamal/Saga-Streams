@@ -16,12 +16,15 @@
     "@mui/material": "^5.15.16",
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
+    "dotenv": "^16.4.5",
+    "firebase": "^10.11.1",
     "mdb-react-ui-kit": "^8.0.0",
     "quill": "^2.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-quill": "^2.0.0",
-    "react-router-dom": "^6.23.0"
+    "react-router-dom": "^6.23.0",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
