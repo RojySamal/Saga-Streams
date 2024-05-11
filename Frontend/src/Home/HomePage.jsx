@@ -6,16 +6,10 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import XIcon from "@mui/icons-material/X";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Header from "../Components/Header";
 import MainFeaturedPost from "./MainFeaturedPost";
 import FeaturedPost from "./FeaturedPost";
-// import Main from './Main';
 import Sidebar from "./Sidebar";
-import Footer from "../Components/Footer";
 import Post from "../Components/Post";
-// import post1 from './blog-post.1.md';
-// import post2 from './blog-post.2.md';
-// import post3 from './blog-post.3.md';
 
 const mainFeaturedPost = {
   title: "Title of a longer featured blog post",
@@ -45,8 +39,6 @@ const featuredPosts = [
   },
 ];
 
-// const posts = [post1, post2, post3];
-
 const sidebar = {
   title: "About",
   description:
@@ -65,7 +57,7 @@ export default function HomePage() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
-      <Container maxWidth="100%">
+      <Container style={{ width: "100%", padding: "0" }}>
         <main>
           <MainFeaturedPost post={mainFeaturedPost} />
           <Grid container spacing={4}>
@@ -73,18 +65,6 @@ export default function HomePage() {
               <FeaturedPost key={post.title} post={post} />
             ))}
           </Grid>
-          {/* <Grid container spacing={5} sx={{ mt: 3, ml: 0 }}>
-            <div>
-              <Post />
-              <Post />
-            </div> */}
-          {/* <Main title="From the firehose" posts={posts} /> */}
-          {/* <Sidebar
-              title={sidebar.title}
-              description={sidebar.description}
-              social={sidebar.social}
-            />
-          </Grid> */}
           <Grid container spacing={2} columns={16} sx={{ mt: 0.5 }}>
             <Grid item xs={10}>
               <Post />

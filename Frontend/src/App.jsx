@@ -20,7 +20,7 @@ function App() {
         <Route path="register" element={<RegisterPage />} />
         <Route path="about" element={<AboutPage />} />
         <Route path="pensaga" element={<CreatePost />} />
-        <Route path="readsaga" element={<SagaBlogs/>}/>
+        <Route path="readsaga" element={<SagaBlogs />} />
       </Route>
     </Routes>
   );
