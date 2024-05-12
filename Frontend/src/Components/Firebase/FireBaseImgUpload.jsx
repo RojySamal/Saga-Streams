@@ -1,62 +1,74 @@
-import React, { useState, useEffect } from "react";
+import React, {
+  useState,
+  useEffect,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 import { Button } from "@mui/material";
-import { TextField,Snackbar} from "@mui/material";
+import { TextField, Snackbar } from "@mui/material";
 import { imageDB } from "../../config/firebaseConfig";
 import { ref, listAll, getDownloadURL, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 
-
-const FireBaseImgUpload = () => {
+const FireBaseImgUpload = forwardRef((props, imgUploadRef) => {
   const [img, setImg] = useState("");
   const [lastImageUrl, setLastImageUrl] = useState("");
-  const [uplaodSucess, setUploadSucess] = useState(false);
+  const [uploadSuccess, setUploadSuccess] = useState(false);
+  const [uploadButtonVisible, setUploadButtonVisible] = useState(false);
   const [imgError, setImgError] = useState("");
+  const [uploadId, setUploadId] = useState("");
   const MAX_FILE_SIZE_MB = 350;
 
-  const handleClick = async () => {
-    try {
-      if (img) {
-
-        if (img.size > MAX_FILE_SIZE_MB * 1024) {
-          setImgError(`File size exceeds ${MAX_FILE_SIZE_MB} KB.`);
-          return;
+  useImperativeHandle(
+    imgUploadRef,
+    () => ({
+      handleClick: async () => {
+        try {
+          if (img) {
+            if (img.size > MAX_FILE_SIZE_MB * 1024) {
+              setImgError(`File size exceeds ${MAX_FILE_SIZE_MB} KB.`);
+              return;
+            }
+            const uploadId = v4();
+            setUploadId(uploadId);
+            const imgRef = ref(imageDB, `images/${uploadId}`);
+            const snapshot = await uploadBytes(imgRef, img);
+            const url = await getDownloadURL(snapshot.ref);
+            setLastImageUrl(url);
+            setUploadSuccess(true);
+            props.setImageUrl(url);
+          } else {
+            setImgError("Please select an image to upload");
+          }
+        } catch (error) {
+          setUploadSuccess(false);
+          setImgError("Error uploading image. Please try again.");
+          props.setImageUrl("");
+          console.error("Error uploading image:", error);
         }
-  
-        const imgRef = ref(imageDB, `images/${v4()}`);
-        const snapshot = await uploadBytes(imgRef, img);
-        const url = await getDownloadURL(snapshot.ref);
-        setLastImageUrl(url);
-        setUploadSucess(true);
-      }
-      else{
-        console.log('Please Select an image to uplaod');
-        setImgError("Please Select an image to uploaad")
-      }
-    } catch (error) {
-      setUploadSucess(false);
-      setImgError("Error uploading Image. Tryb Again")
-      console.error("Error uploading image:", error);
-    }
-  };
+      },
+    }),
+    [img]
+  );
 
   useEffect(() => {
-    if (uplaodSucess) {
+    setUploadButtonVisible(props.hideButton);
+  }, []);
+
+  useEffect(() => {
+    if (uploadSuccess) {
       const fetchLastImage = async () => {
         try {
-          const images = await listAll(ref(imageDB, "images"));
-          if (images.items.length > 0) {
-            const lastImageRef = images.items[images.items.length - 1];
-            const lastImageUrl = await getDownloadURL(lastImageRef);
-            setLastImageUrl(lastImageUrl);
-          }
+          const lastImageRef = ref(imageDB, `images/${uploadId}`);
+          const lastImageUrl = await getDownloadURL(lastImageRef);
+          setLastImageUrl(lastImageUrl);
         } catch (error) {
           console.error("Error fetching last image:", error);
         }
       };
       fetchLastImage();
     }
-  }, [uplaodSucess]);
-  
+  }, [uploadSuccess]);
 
   const handleCloseSnackbar = () => {
     setImgError("");
@@ -73,7 +85,11 @@ const FireBaseImgUpload = () => {
         className="file"
         onChange={(e) => setImg(e.target.files[0])}
       />
-      <Button variant="contained" onClick={handleClick}>
+      <Button
+        variant="contained"
+        style={{ display: uploadButtonVisible ? "none" : "block" }}
+        onClick={props.onClick}
+      >
         Upload
       </Button>
       <Snackbar
@@ -90,6 +106,6 @@ const FireBaseImgUpload = () => {
       )}
     </div>
   );
-};
+});
 
 export default FireBaseImgUpload;

@@ -1,6 +1,6 @@
 import * as React from "react";
 import "react-quill/dist/quill.snow.css";
-import { useRef } from "react"; // Import useRef hook
+import { useRef, useState } from "react"; // Import useRef hook
 import Editor from "../hooks/Editor";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -14,6 +14,15 @@ const defaultTheme = createTheme();
 
 export default function CreatePost() {
   const quillRef = useRef();
+  const hide = true;
+  const [imageUrl, setImageUrl] = useState("");
+  const imgUploadRef = useRef();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Create Initiated");
+    imgUploadRef.current.handleClick();
+  };
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -26,15 +35,18 @@ export default function CreatePost() {
             flexDirection: "column",
             alignItems: "center",
           }}
+          as="form" // Define Box as a form
+          onSubmit={handleSubmit}
         >
           <Typography component="h1" variant="h5">
             Create your post ✨
           </Typography>
-          <Box component="form" noValidate sx={{ mt: 1 }}>
+          <Box noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
               fullWidth
+              type="text"
               className="title"
               label="Title"
               name="title"
@@ -50,10 +62,15 @@ export default function CreatePost() {
               type="text"
               className="summary"
             />
-            <FireBaseImgUpload/>
+            <FireBaseImgUpload
+              ref={imgUploadRef}
+              setImageUrl={setImageUrl}
+              hideButton={hide}
+            />
             <Editor ref={quillRef} />
             <Button
               type="submit"
+              onSubmit={handleSubmit}
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
