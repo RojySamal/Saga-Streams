@@ -1,42 +1,66 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "@mui/material";
-import {TextField} from "@mui/material";
+import { TextField,Snackbar} from "@mui/material";
 import { imageDB } from "../../config/firebaseConfig";
-import {
-  ref,
-  listAll,
-  getDownloadURL,
-  uploadBytes,
-  list,
-} from "firebase/storage";
+import { ref, listAll, getDownloadURL, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
+
 
 const FireBaseImgUpload = () => {
   const [img, setImg] = useState("");
-  const [imgUrl, setImgUrl] = useState([]);
+  const [lastImageUrl, setLastImageUrl] = useState("");
+  const [uplaodSucess, setUploadSucess] = useState(false);
+  const [imgError, setImgError] = useState("");
+  const MAX_FILE_SIZE_MB = 350;
 
-  const handleClick = () => {
-    if (img) {
-      const imgRef = ref(imageDB, `images/${v4()}`);
-      uploadBytes(imgRef, img).then((value) => {
-        console.log(value);
-        getDownloadURL(value.ref).then((url) => {
-          setImgUrl((data) => [...data, url]);
-        });
-      });
+  const handleClick = async () => {
+    try {
+      if (img) {
+
+        if (img.size > MAX_FILE_SIZE_MB * 1024) {
+          setImgError(`File size exceeds ${MAX_FILE_SIZE_MB} KB.`);
+          return;
+        }
+  
+        const imgRef = ref(imageDB, `images/${v4()}`);
+        const snapshot = await uploadBytes(imgRef, img);
+        const url = await getDownloadURL(snapshot.ref);
+        setLastImageUrl(url);
+        setUploadSucess(true);
+      }
+      else{
+        console.log('Please Select an image to uplaod');
+        setImgError("Please Select an image to uploaad")
+      }
+    } catch (error) {
+      setUploadSucess(false);
+      setImgError("Error uploading Image. Tryb Again")
+      console.error("Error uploading image:", error);
     }
   };
 
   useEffect(() => {
-    listAll(ref(imageDB, "images")).then((imgs) => {
-      console.log(imgs);
-      imgs.items.forEach((val) => {
-        getDownloadURL(val).then((url) => {
-          setImgUrl((data) => [...data, url]);
-        });
-      });
-    });
-  }, []);
+    if (uplaodSucess) {
+      const fetchLastImage = async () => {
+        try {
+          const images = await listAll(ref(imageDB, "images"));
+          if (images.items.length > 0) {
+            const lastImageRef = images.items[images.items.length - 1];
+            const lastImageUrl = await getDownloadURL(lastImageRef);
+            setLastImageUrl(lastImageUrl);
+          }
+        } catch (error) {
+          console.error("Error fetching last image:", error);
+        }
+      };
+      fetchLastImage();
+    }
+  }, [uplaodSucess]);
+  
+
+  const handleCloseSnackbar = () => {
+    setImgError("");
+  };
 
   return (
     <div>
@@ -52,12 +76,18 @@ const FireBaseImgUpload = () => {
       <Button variant="contained" onClick={handleClick}>
         Upload
       </Button>
+      <Snackbar
+        open={!!imgError}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+        message={imgError}
+      />
       <br />
-      {imgUrl.map((dataVal,index) => (
-        <div key={index} sx={{ margin: "1rem 0 0 0" }}>
-          <img src={dataVal} height="200px" width="200px" />
+      {lastImageUrl && (
+        <div sx={{ margin: "1rem 0 0 0" }}>
+          <img src={lastImageUrl} height="200px" width="200px" />
         </div>
-      ))}
+      )}
     </div>
   );
 };

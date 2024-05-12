@@ -9,6 +9,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import FireBaseImgUpload from "../Components/Firebase/FireBaseImgUpload";
 const defaultTheme = createTheme();
 
 export default function CreatePost() {
@@ -49,14 +50,7 @@ export default function CreatePost() {
               type="text"
               className="summary"
             />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="file"
-              type="file"
-              className="file"
-            />
+            <FireBaseImgUpload/>
             <Editor ref={quillRef} />
             <Button
               type="submit"
