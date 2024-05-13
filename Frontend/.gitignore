@@ -26,5 +26,3 @@ dist-ssr
 # Environment VAriables
 .env 
 
-# IMP Credentials
-firebaseConfig.js 

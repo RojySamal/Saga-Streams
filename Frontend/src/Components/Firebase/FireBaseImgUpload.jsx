@@ -21,8 +21,9 @@ const FireBaseImgUpload = forwardRef((props, imgUploadRef) => {
 
   useImperativeHandle(
     imgUploadRef,
-    () => ({
-      handleClick: async () => {
+    () => ({       
+
+      handleClickAndReturnUrl: async () => {
         try {
           if (img) {
             if (img.size > MAX_FILE_SIZE_MB * 1024) {
@@ -36,14 +37,13 @@ const FireBaseImgUpload = forwardRef((props, imgUploadRef) => {
             const url = await getDownloadURL(snapshot.ref);
             setLastImageUrl(url);
             setUploadSuccess(true);
-            props.setImageUrl(url);
+            return url
           } else {
             setImgError("Please select an image to upload");
           }
         } catch (error) {
           setUploadSuccess(false);
           setImgError("Error uploading image. Please try again.");
-          props.setImageUrl("");
           console.error("Error uploading image:", error);
         }
       },
@@ -60,8 +60,9 @@ const FireBaseImgUpload = forwardRef((props, imgUploadRef) => {
       const fetchLastImage = async () => {
         try {
           const lastImageRef = ref(imageDB, `images/${uploadId}`);
-          const lastImageUrl = await getDownloadURL(lastImageRef);
-          setLastImageUrl(lastImageUrl);
+          const lastImageUrlRef = await getDownloadURL(lastImageRef);
+          setLastImageUrl(lastImageUrlRef);
+          console.log('image set here');
         } catch (error) {
           console.error("Error fetching last image:", error);
         }

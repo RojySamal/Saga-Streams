@@ -11,17 +11,49 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import FireBaseImgUpload from "../Components/Firebase/FireBaseImgUpload";
 const defaultTheme = createTheme();
+import Alert from "@mui/material/Alert";
 
 export default function CreatePost() {
-  const quillRef = useRef();
-  const hide = true;
-  const [imageUrl, setImageUrl] = useState("");
-  const imgUploadRef = useRef();
 
-  const handleSubmit = (e) => {
+  const quillRef = useRef();
+  const imgUploadRef = useRef();
+  const hide = true;
+  const [title, setTitle] = useState("");
+  const [topic, setTopic] = useState("");
+  const [formError, setFormError] = useState("");
+
+  const handleTitleChange = (event) => {
+    setTitle(event.target.value);
+  };
+
+  const handleTopicChange = (event) => {
+    setTopic(event.target.value);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Create Initiated");
-    imgUploadRef.current.handleClick();
+    const lastImageUrl = await imgUploadRef.current.handleClickAndReturnUrl();
+    // await imgUploadRef.current.handleClick();
+    // const lastImageUrl = imgUploadRef.current.getLastImageUrl();
+    if (lastImageUrl === null) {
+      setFormError("Image upload Failed!!");
+      return;
+    }
+    if (lastImageUrl === "") {
+      setFormError("Didin't receive Image!!");
+      return;
+    }
+    // Get the content from the editor
+    const content = quillRef.current.getContent();
+
+    // Remove <p> and </p> tags using regex
+    const trimmedContent = content.replace(/<\/?p>/g, "");
+    console.log("Title:", title);
+    console.log("Topic:", topic);
+    console.log("Content:", title);
+    console.log("ImageURL:", lastImageUrl);
+    console.log("Content:", trimmedContent);
   };
 
   return (
@@ -35,7 +67,7 @@ export default function CreatePost() {
             flexDirection: "column",
             alignItems: "center",
           }}
-          as="form" // Define Box as a form
+          as="form"
           onSubmit={handleSubmit}
         >
           <Typography component="h1" variant="h5">
@@ -52,21 +84,21 @@ export default function CreatePost() {
               name="title"
               autoComplete="title"
               autoFocus
+              onChange={handleTitleChange}
+              value={title}
             />
             <TextField
               margin="normal"
               required
               fullWidth
-              name="summary"
-              label="Summary"
+              name="topic"
+              label="Topic"
               type="text"
-              className="summary"
+              className="topic"
+              onChange={handleTopicChange}
+              value={topic}
             />
-            <FireBaseImgUpload
-              ref={imgUploadRef}
-              setImageUrl={setImageUrl}
-              hideButton={hide}
-            />
+            <FireBaseImgUpload ref={imgUploadRef} hideButton={hide} />
             <Editor ref={quillRef} />
             <Button
               type="submit"
@@ -77,6 +109,11 @@ export default function CreatePost() {
             >
               Create
             </Button>
+            {formError && (
+              <Alert variant="outlined" severity="error">
+                {formError}
+              </Alert>
+            )}
           </Box>
         </Box>
       </Container>

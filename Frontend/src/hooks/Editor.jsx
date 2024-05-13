@@ -40,6 +40,12 @@ const Editor = forwardRef(
         onSelectionChangeRef.current?.(...args);
       });
 
+      // Define method to get content
+      ref.current.getContent = () => {
+        return quill.root.innerHTML;
+      };
+      
+
       return () => {
         ref.current = null;
         container.innerHTML = "";

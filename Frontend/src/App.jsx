@@ -22,7 +22,6 @@ function App() {
         <Route path="about" element={<AboutPage />} />
         <Route path="pensaga" element={<CreatePost />} />
         <Route path="readsaga" element={<SagaBlogs />} />
-        <Route path="uploadimg" element={<FireBaseImgUpload />} />
       </Route>
     </Routes>
   );
