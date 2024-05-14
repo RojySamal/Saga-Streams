@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { connectDB } from "./config/db.js";
 import authRouter from "./routes/auth.routes.js";
+import blogRouter from "./routes/blog.routes.js";
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(morgan("dev"));
 connectDB();
 
 app.use("/auth",authRouter)
+app.use("/blogs",blogRouter)
 
 app.get("/", (req, res) => {
     res.send("<h1>hii welcome to ecommerece webapp</h1>");

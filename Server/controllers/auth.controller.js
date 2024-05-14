@@ -1,14 +1,12 @@
-import jwt from "jsonwebtoken";
+
 import UserDataModel from "../models/user.model.js";
+import { createToken } from "../helpers/auth.helper.js";
 
 import {
   hashPassword,
   comparePassword,
 } from "../helpers/auth.helper.js";
 
-const createToken = (_id) => {
-  return jwt.sign({ _id }, process.env.JWT_SECRET, { expiresIn: "4h" });
-};
 
 export const signUpUser = async (req, res) => {
   try {

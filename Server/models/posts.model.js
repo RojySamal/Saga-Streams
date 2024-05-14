@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import UserDataModel from "./user.model"; 
 
 const postSchema = mongoose.Schema({
   title: {
@@ -29,6 +28,6 @@ const postSchema = mongoose.Schema({
   }
 });
 
-const PostModel = mongoose.model("Post", postSchema);
+const BlogPostModel = mongoose.model("Post", postSchema);
 
-export default PostModel;
+export default BlogPostModel;

@@ -50,6 +50,7 @@ export default function LoginPage() {
       else
       {
         alert("Login Successful");
+        console.log(localStorage.getItem('user'));
         navigate("/");
       }
     }catch(err){

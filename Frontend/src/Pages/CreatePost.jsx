@@ -12,15 +12,15 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import FireBaseImgUpload from "../Components/Firebase/FireBaseImgUpload";
 const defaultTheme = createTheme();
 import Alert from "@mui/material/Alert";
+import { createPostAPI } from "../api/createBlogAPI";
 
 export default function CreatePost() {
-
   const quillRef = useRef();
   const imgUploadRef = useRef();
   const hide = true;
   const [title, setTitle] = useState("");
   const [topic, setTopic] = useState("");
-  const [summary,setSummary] = useState([]);
+  const [summary, setSummary] = useState([]);
   const [formError, setFormError] = useState("");
 
   const handleTitleChange = (event) => {
@@ -38,6 +38,15 @@ export default function CreatePost() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Create Initiated");
+    const user = localStorage.getItem("user");
+    let token = "";
+    if (user) {
+      const userData = JSON.parse(user);
+      token = userData.token;
+    } else {
+      console.log("User data not found in local storage");
+    }
+
     const lastImageUrl = await imgUploadRef.current.handleClickAndReturnUrl();
     if (lastImageUrl === null) {
       setFormError("Image upload Failed!!");
@@ -47,18 +56,34 @@ export default function CreatePost() {
       setFormError("Didin't receive Image!!");
       return;
     }
-    
+
     const content = quillRef.current.getContent();
     const trimmedContent = content.replace(/<\/?p>/g, "");
 
-    const words = topic.split(' ').map(word => word.trim());
-    const filteredWords = words.filter(word => word !== '');
+    const words = topic.split(" ").map((word) => word.trim());
+    const filteredWords = words.filter((word) => word !== "");
 
-    console.log("Title:", title);
-    console.log("Topic:", filteredWords);
-    console.log("Summary",summary);
-    console.log("ImageURL:", lastImageUrl);
-    console.log("Content:", trimmedContent);
+    // console.log("Title:", title);
+    // console.log("Topic:", filteredWords);
+    // console.log("Summary", summary);
+    // console.log("ImageURL:", lastImageUrl);
+    // console.log("Content:", trimmedContent);
+    // console.log("Token: ", token);
+
+    const postData = {
+      title: title,
+      topic: filteredWords,
+      summary: summary,
+      imageUrl: lastImageUrl,
+      content: trimmedContent,
+    };
+
+    try {
+      const response = await createPostAPI(postData, token);
+      console.log("Post created successfully:", response);
+    } catch (error) {
+      console.error("Error creating post:", error);
+    }
   };
 
   return (
