@@ -10,7 +10,8 @@ import { Routes, Route } from "react-router-dom";
 import CreatePost from "./Pages/CreatePost";
 import AboutPage from "./Pages/AboutPage";
 import SagaBlogs from "./Pages/SagaBlogs";
-import FireBaseImgUpload from "./Components/Firebase/FireBaseImgUpload";
+// import FireBaseImgUpload from "./Components/Firebase/FireBaseImgUpload";
+import ProfilePage from "./Pages/ProfilePage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="about" element={<AboutPage />} />
         <Route path="pensaga" element={<CreatePost />} />
         <Route path="readsaga" element={<SagaBlogs />} />
+        <Route path="profile" element={<ProfilePage />} />
       </Route>
     </Routes>
   );

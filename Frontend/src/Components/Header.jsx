@@ -18,6 +18,7 @@ import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { Snackbar } from "@mui/material";
 
+
 const pages = [
   { name: "Home", url: "/" },
   { name: "About", url: "/about" },
@@ -25,7 +26,7 @@ const pages = [
   { name: "Write", url: "/pensaga" },
 ];
 
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = ["Profile", "Logout"];
 
 function Header() {
   const navigate = useNavigate();
@@ -39,6 +40,7 @@ function Header() {
 
   const handleLogout = () => {
     logmeout();
+    navigate("/");
   };
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -58,6 +60,19 @@ function Header() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const handleSettings = (sets) =>{
+    
+    if(sets==="Profile")
+      {
+        navigate("/profile")
+      }
+    if(sets==="Logout")
+      {
+        handleLogout();
+      }
+    
+  }
 
   const [snackbarState, setSnackbarState] = React.useState({
     open: false,
@@ -223,7 +238,8 @@ function Header() {
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                   <Typography
                     textAlign="center"
-                    onClick={setting === "Logout" ? handleLogout : undefined}
+                    // onClick={setting=>handleSettings(setting)}
+                    onClick={()=>handleSettings(setting)}
                   >
                     {setting}
                   </Typography>
