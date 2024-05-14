@@ -26,7 +26,11 @@ const userdataSchema = mongoose.Schema({
       type: String,
       required: true,
     },
+    profileurl:{
+      type:String,
+      required:false,
+    }
   });
 
-const UserDataModel = mongoose.model("UserData", userdataSchema);
+const UserDataModel = mongoose.model("UsersData", userdataSchema);
 export default UserDataModel;

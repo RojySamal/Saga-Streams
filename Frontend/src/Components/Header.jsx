@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { Snackbar } from "@mui/material";
 
 const pages = [
   { name: "Home", url: "/" },
@@ -32,8 +33,8 @@ function Header() {
   const {
     state: { user },
   } = useAuthContext();
-  const firstname = user ? JSON.parse(user).user.firstname : ''; 
-  
+  const firstname = user ? JSON.parse(user).user.firstname : "";
+
   const { logmeout } = useLogout();
 
   const handleLogout = () => {
@@ -58,9 +59,26 @@ function Header() {
     setAnchorElUser(null);
   };
 
+  const [snackbarState, setSnackbarState] = React.useState({
+    open: false,
+    message: "",
+  });
+
+
+  const openSnackbar = (message) => {
+    setSnackbarState({ open: true, message });
+    setTimeout(() => {
+      setSnackbarState({ open: false, message: "" });
+    }, 3000);
+  };
+
   const handleMenuItemClick = (url) => {
-    navigate(url);
-    handleCloseNavMenu(); // Optionally close the menu after navigation
+    if (url === "/pensaga" && !user) {
+      openSnackbar("Please login to write a post.");
+    } else {
+      navigate(url);
+      handleCloseNavMenu(); 
+    }
   };
 
   return (
@@ -164,8 +182,7 @@ function Header() {
             {pages.map((page) => (
               <Button
                 key={page.url}
-                href={page.url}
-                onClick={handleCloseNavMenu}
+                onClick={() => handleMenuItemClick(page.url)}
                 sx={{ my: 2, color: "black", display: "block" }}
               >
                 {page.name}
@@ -213,6 +230,16 @@ function Header() {
                 </MenuItem>
               ))}
             </Menu>
+            {snackbarState.open && (
+              <Snackbar
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                open={snackbarState.open}
+                message={snackbarState.message}
+                onClose={() => setSnackbarState({ open: false, message: "" })}
+                autoHideDuration={3000}
+                key={`${"top"}${"center"}`}
+              />
+            )}
           </Box>
         </Toolbar>
       </Container>

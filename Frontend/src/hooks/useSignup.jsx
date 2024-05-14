@@ -7,7 +7,7 @@ export const useSignup = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
 
-  const signup = async (firstName, lastName, email, password) => {
+  const signup = async (firstName, lastName, email, password,profileUrl) => {
     setIsLoading(true);
     setError(null);
     let isSuccess=false;
@@ -17,6 +17,7 @@ export const useSignup = () => {
         lastname: lastName,
         email: email,
         password: password,
+        profileurl:profileUrl
       });
 
       if (response.status === 200) {

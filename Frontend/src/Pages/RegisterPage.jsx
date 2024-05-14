@@ -29,6 +29,7 @@ export default function RegisterPage() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const profileUrl="";
   const [loggedStatus, setLoggedStatus] = useState(false);
 
   const handleFirstNameChange = (event) => {
@@ -55,7 +56,7 @@ export default function RegisterPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await signup(firstName, lastName, email, password);
+      const response = await signup(firstName, lastName, email, password,profileUrl);
       if (!response) {
         alert("Registration Failed", error);
       } else {

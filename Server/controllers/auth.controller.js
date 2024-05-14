@@ -12,8 +12,9 @@ const createToken = (_id) => {
 
 export const signUpUser = async (req, res) => {
   try {
-    const { firstname, lastname, email, password } =
+    const { firstname, lastname, email, password,profileurl } =
       req.body;
+      
     const existingUser = await UserDataModel.findOne({ email });
     if (!existingUser) {
       const hashedPassword = await hashPassword(password);
@@ -25,6 +26,7 @@ export const signUpUser = async (req, res) => {
         },
         email,
         password: hashedPassword,
+        profileurl:profileurl,
       });
 
       const token = createToken(user._id);
@@ -33,6 +35,7 @@ export const signUpUser = async (req, res) => {
           firstname: user.name.firstname,
           lastname: user.name.lastname,
           email: user.email,
+          profileurl: user.profileurl,
         },
         token,
         message: "Successfully submitted",
@@ -85,6 +88,7 @@ export const logInUser = async (req, res) => {
         firstname: user.name.firstname,
         lastname: user.name.lastname,
         email: user.email,
+        profileurl:user.profileurl,
       },
       token,
     });

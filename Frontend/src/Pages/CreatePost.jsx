@@ -20,6 +20,7 @@ export default function CreatePost() {
   const hide = true;
   const [title, setTitle] = useState("");
   const [topic, setTopic] = useState("");
+  const [summary,setSummary] = useState([]);
   const [formError, setFormError] = useState("");
 
   const handleTitleChange = (event) => {
@@ -30,12 +31,14 @@ export default function CreatePost() {
     setTopic(event.target.value);
   };
 
+  const handleSummaryChange = (event) => {
+    setSummary(event.target.value);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Create Initiated");
     const lastImageUrl = await imgUploadRef.current.handleClickAndReturnUrl();
-    // await imgUploadRef.current.handleClick();
-    // const lastImageUrl = imgUploadRef.current.getLastImageUrl();
     if (lastImageUrl === null) {
       setFormError("Image upload Failed!!");
       return;
@@ -44,14 +47,16 @@ export default function CreatePost() {
       setFormError("Didin't receive Image!!");
       return;
     }
-    // Get the content from the editor
+    
     const content = quillRef.current.getContent();
-
-    // Remove <p> and </p> tags using regex
     const trimmedContent = content.replace(/<\/?p>/g, "");
+
+    const words = topic.split(' ').map(word => word.trim());
+    const filteredWords = words.filter(word => word !== '');
+
     console.log("Title:", title);
-    console.log("Topic:", topic);
-    console.log("Content:", title);
+    console.log("Topic:", filteredWords);
+    console.log("Summary",summary);
     console.log("ImageURL:", lastImageUrl);
     console.log("Content:", trimmedContent);
   };
@@ -97,6 +102,17 @@ export default function CreatePost() {
               className="topic"
               onChange={handleTopicChange}
               value={topic}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="summary"
+              label="Blog Summary"
+              type="text"
+              className="summary"
+              onChange={handleSummaryChange}
+              value={summary}
             />
             <FireBaseImgUpload ref={imgUploadRef} hideButton={hide} />
             <Editor ref={quillRef} />
