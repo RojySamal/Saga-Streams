@@ -12,12 +12,11 @@ import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { fetchUserById } from "../api/fetchUserAPI";
 import { Chip } from "@mui/material";
 import { Button } from "@mui/material";
-import { Button } from "@mui/material";
 import PropTypes from "prop-types";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -42,7 +41,7 @@ export default function Post({
   const navigate = useNavigate();
   const [expanded, setExpanded] = useState(false);
   const [userData, setUserData] = useState(null);
-
+  console.log("userData: ", userData);
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -59,8 +58,6 @@ export default function Post({
     }
   }, [blogUser]);
 
-
-
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -75,7 +72,7 @@ export default function Post({
         blogContent,
         blogUser,
         blogPostTime,
-        userData
+        userData,
       },
     });
   };
@@ -93,7 +90,7 @@ export default function Post({
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
+            {userData && userData.user.name.firstname.charAt(0)}
           </Avatar>
         }
         title={blogTitle}
@@ -113,13 +110,7 @@ export default function Post({
             ))}
           </div>
         }
-        {
-          <div>
-            {blogTopic.map((topic, index) => (
-              <Chip key={index} label={topic} style={{ margin: "0.5rem" }} />
-            ))}
-          </div>
-        }
+
         <Typography variant="body2" color="text.secondary">
           {blogSummary}
         </Typography>
