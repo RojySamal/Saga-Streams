@@ -44,6 +44,8 @@ const SagaBlogs = () => {
                 blogSummary={blog.summary}
                 blogImage={blog.imageUrl}
                 blogContent={blog.content}
+                blogUser={blog.user}
+                blogPostTime={blog.createdAt}
               />
             ))}
           </div>

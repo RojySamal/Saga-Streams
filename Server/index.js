@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import { connectDB } from "./config/db.js";
 import authRouter from "./routes/auth.routes.js";
 import blogRouter from "./routes/blog.routes.js";
+import profileRouter from "./routes/profile.routes.js";
 
 dotenv.config();
 
@@ -20,7 +21,7 @@ connectDB();
 
 app.use("/auth",authRouter)
 app.use("/blogs",blogRouter)
-
+app.use("/profile",profileRouter)
 app.get("/", (req, res) => {
     res.send("<h1>hii welcome to ecommerece webapp</h1>");
   });

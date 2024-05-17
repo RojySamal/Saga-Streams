@@ -14,8 +14,9 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Chip } from "@mui/material";
-import {Button} from "@mui/material";
+import { Button } from "@mui/material";
 import PropTypes from "prop-types";
+import { useState,useEffect } from "react";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -28,10 +29,36 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function Post({blogTitle="", blogTopic=[], blogSummary="", blogImage="", blogContent=""}) {
-
+export default function Post({
+  blogTitle = "",
+  blogTopic = [],
+  blogSummary = "",
+  blogImage = "",
+  blogContent = "",
+  blogUser = "",
+  blogPostTime = "",
+}) {
   const navigate = useNavigate();
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userData = await fetchUserById(blogUser);
+        setUserData(userData);
+      } catch (error) {
+        console.error("Error fetching user details:", error);
+        // Handle error if needed
+      }
+    };
+
+    if (blogUser) {
+      fetchUserData();
+    }
+  }, [blogUser]);
+
+
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -45,6 +72,9 @@ export default function Post({blogTitle="", blogTopic=[], blogSummary="", blogIm
         blogSummary,
         blogImage,
         blogContent,
+        blogUser,
+        blogPostTime,
+        userData
       },
     });
   };
@@ -56,14 +86,6 @@ export default function Post({blogTitle="", blogTopic=[], blogSummary="", blogIm
     blogImage: PropTypes.string,
     blogContent: PropTypes.string.isRequired,
   };
-
-  // Post.defaultProps = {
-  //   blogTopic: [],
-  //   blogContent:'',
-  //   blogImage:'',
-  //   blogTitle:'',
-  //   blogSummary:''
-  // };
 
   return (
     <Card item xs={12} md={6} sx={{ mb: 2 }}>
@@ -88,12 +110,13 @@ export default function Post({blogTitle="", blogTopic=[], blogSummary="", blogIm
         alt={blogTitle}
       />
       <CardContent>
-      { <div>
-      
-      {(blogTopic).map((topic, index) => (
-        <Chip key={index} label={topic} style={{ margin: '0.5rem' }} />
-      ))}
-      </div> }
+        {
+          <div>
+            {blogTopic.map((topic, index) => (
+              <Chip key={index} label={topic} style={{ margin: "0.5rem" }} />
+            ))}
+          </div>
+        }
         <Typography variant="body2" color="text.secondary">
           {blogSummary}
         </Typography>

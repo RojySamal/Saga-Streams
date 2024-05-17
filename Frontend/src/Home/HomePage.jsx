@@ -67,8 +67,8 @@ export default function HomePage() {
           </Grid>
           <Grid container spacing={2} columns={16} sx={{ mt: 0.5 }}>
             <Grid item xs={10}>
-              <Post />
-              <Post />
+              <Post blogTitle="Dummy" blogContent="Dummy" blogTopic={[]} blogImage="" blogSummary=""/>
+              <Post blogTitle="Dummy" blogContent="Dummy" blogTopic={[]} blogImage="" blogSummary=""/>
             </Grid>
             <Grid item xs={6}>
               <Sidebar
