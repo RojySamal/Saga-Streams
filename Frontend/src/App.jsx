@@ -13,6 +13,7 @@ import SagaBlogs from "./Pages/SagaBlogs";
 import { useAuthContext } from "./hooks/useAuthContext";
 import ProfilePage from "./Pages/ProfilePage";
 import BlogPage from "./Pages/BlogPage";
+import Feedback from "./Pages/Feedback";
 
 function App() {
   const {
@@ -29,6 +30,7 @@ function App() {
         <Route path="readsaga" element={user ? <SagaBlogs /> : <HomePage />} />
         <Route path="profile" element={<ProfilePage />} />
         <Route path="blog" element={user ? <BlogPage /> : <HomePage />} />
+        <Route path="feedback" element={<Feedback />} />
       </Route>
     </Routes>
   );
