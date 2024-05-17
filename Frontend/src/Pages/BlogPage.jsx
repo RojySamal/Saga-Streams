@@ -35,7 +35,7 @@ export default function BlogPage() {
           }}
         >
           <Typography component="h1" variant="h5">
-            Title
+            {blogTitle}
           </Typography>
           <Box noValidate sx={{ mt: 3 }}>
             <Grid container spacing={0.5}>
@@ -63,21 +63,14 @@ export default function BlogPage() {
                 <CardMedia
                   component="img"
                   height="194"
-                  image="/static/images/cards/paella.jpg"
-                  alt="Paella dish"
+                  image={blogImage}
+                  alt={blogTitle}
                   border="1px solid black"
                 />
               </Grid>
               <Grid item xs={12}>
                 <div>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa
-                  nostrum veritatis itaque, necessitatibus debitis vero nam
-                  praesentium possimus eos mollitia laborum totam. Odit,
-                  consequatur placeat! Sequi alias dolores nostrum asperiores.
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Laborum debitis dolores neque nihil beatae impedit corrupti
-                  officia cumque. Fuga nobis nemo accusamus vel corporis iusto
-                  facilis modi distinctio debitis a.
+                  {blogContent}
                 </div>
               </Grid>
             </Grid>
