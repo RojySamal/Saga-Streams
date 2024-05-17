@@ -1,6 +1,7 @@
 import axios from "../config/axiosConfig";
 
-export const fetchBlogs = async () => {
+
+export const fetchUserById = async (userId) => {
   try {
     const user = localStorage.getItem("user");
 
@@ -8,16 +9,14 @@ export const fetchBlogs = async () => {
       throw new Error("User not authenticated");
     }
     const token = JSON.parse(user).token;
-    console.log("token in read blog: ", token);
-    const response = await axios.get("/blogs/readblogs", {
+    const response = await axios.get(`/profile/udetails/${userId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(response.data);
+    console.log('User Details: ',response.data);
     return response.data;
   } catch (error) {
-    console.error("Error fetching blogs:", error);
-    throw error;
+    throw new Error("Network response was not ok");
   }
 };

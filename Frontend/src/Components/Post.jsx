@@ -12,10 +12,11 @@ import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { fetchUserById } from "../api/fetchUserAPI";
 import { Chip } from "@mui/material";
 import { Button } from "@mui/material";
 import PropTypes from "prop-types";
+import { useState, useEffect } from "react";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -34,9 +35,28 @@ export default function Post({
   blogSummary = "",
   blogImage = "",
   blogContent = "",
+  blogUser = "",
+  blogPostTime = "",
 }) {
   const navigate = useNavigate();
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
+  const [userData, setUserData] = useState(null);
+  console.log("userData: ", userData);
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userData = await fetchUserById(blogUser);
+        setUserData(userData);
+      } catch (error) {
+        console.error("Error fetching user details:", error);
+        // Handle error if needed
+      }
+    };
+
+    if (blogUser) {
+      fetchUserData();
+    }
+  }, [blogUser]);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -50,6 +70,9 @@ export default function Post({
         blogSummary,
         blogImage,
         blogContent,
+        blogUser,
+        blogPostTime,
+        userData,
       },
     });
   };
@@ -62,20 +85,12 @@ export default function Post({
     blogContent: PropTypes.string.isRequired,
   };
 
-  // Post.defaultProps = {
-  //   blogTopic: [],
-  //   blogContent:'',
-  //   blogImage:'',
-  //   blogTitle:'',
-  //   blogSummary:''
-  // };
-
   return (
     <Card item xs={12} md={6} sx={{ mb: 2 }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
+            {userData && userData.user.name.firstname.charAt(0)}
           </Avatar>
         }
         title={blogTitle}
@@ -95,6 +110,7 @@ export default function Post({
             ))}
           </div>
         }
+
         <Typography variant="body2" color="text.secondary">
           {blogSummary}
         </Typography>
