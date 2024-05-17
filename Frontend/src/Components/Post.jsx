@@ -13,6 +13,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Chip } from "@mui/material";
+import {Link} from "@mui/material";
 import PropTypes from "prop-types";
 
 const ExpandMore = styled((props) => {
@@ -88,13 +89,16 @@ export default function Post({blogTitle, blogTopic, blogSummary, blogImage, blog
           <ShareIcon />
         </IconButton>
       </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-        <Typography>
-          {blogContent}
-        </Typography>
-        </CardContent>
-      </Collapse>
+      <Link
+        variant="subtitle1"
+        href="#"
+        style={{
+          textDecoration: "none",
+          paddingLeft: "2%",
+        }}
+      >
+        Continue Reading....
+      </Link>
     </Card>
   );
 }
