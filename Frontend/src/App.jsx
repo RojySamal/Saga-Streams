@@ -12,6 +12,7 @@ import AboutPage from "./Pages/AboutPage";
 import SagaBlogs from "./Pages/SagaBlogs";
 // import FireBaseImgUpload from "./Components/Firebase/FireBaseImgUpload";
 import ProfilePage from "./Pages/ProfilePage";
+import BlogPage from "./Pages/BlogPage";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="pensaga" element={<CreatePost />} />
         <Route path="readsaga" element={<SagaBlogs />} />
         <Route path="profile" element={<ProfilePage />} />
+        <Route path="blog" element={<BlogPage />} />
       </Route>
     </Routes>
   );
