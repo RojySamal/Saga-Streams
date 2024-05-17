@@ -57,7 +57,7 @@ export default function HomePage() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
-      <Container style={{ width: "100%", padding: "0" }}>
+      <Container style={{ padding: "0" }} maxWidth="xl">
         <main>
           <MainFeaturedPost post={mainFeaturedPost} />
           <Grid container spacing={4}>
