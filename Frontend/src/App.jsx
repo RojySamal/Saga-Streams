@@ -12,6 +12,7 @@ import AboutPage from "./Pages/AboutPage";
 import SagaBlogs from "./Pages/SagaBlogs";
 import { useAuthContext } from "./hooks/useAuthContext";
 import ProfilePage from "./Pages/ProfilePage";
+import BlogPage from "./Pages/BlogPage";
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
         <Route path="pensaga" element={user?<CreatePost />:<HomePage/>} />
         <Route path="readsaga" element={user?<SagaBlogs />:<HomePage/>} />
         <Route path="profile" element={<ProfilePage />} />
+        <Route path="blog" element={<BlogPage />} />
       </Route>
     </Routes>
   );
