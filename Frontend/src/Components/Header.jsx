@@ -33,7 +33,7 @@ function Header() {
   const {
     state: { user },
   } = useAuthContext();
-  
+
   const firstname = user ? JSON.parse(user).user.firstname : "";
 
   const { logmeout } = useLogout();
@@ -97,8 +97,8 @@ function Header() {
     <AppBar
       position="sticky"
       sx={{
-        backgroundColor: "white",
-        color: "black",
+        backgroundColor: "#212529",
+        color: "white",
         boxShadow: "none",
       }}
     >
@@ -121,7 +121,7 @@ function Header() {
               fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
-              color: "inherit",
+              color: "white",
               textDecoration: "none",
             }}
           >
@@ -135,7 +135,7 @@ function Header() {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              color="inherit"
+              color="white"
             >
               <MenuIcon />
             </IconButton>
@@ -184,7 +184,7 @@ function Header() {
               fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
-              color: "inherit",
+              color: "white",
               textDecoration: "none",
             }}
           >
@@ -195,7 +195,7 @@ function Header() {
               <Button
                 key={page.url}
                 onClick={() => handleMenuItemClick(page.url)}
-                sx={{ my: 2, color: "black", display: "block" }}
+                sx={{ my: 2, color: "white", display: "block" }}
               >
                 {page.name}
               </Button>
