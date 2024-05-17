@@ -14,7 +14,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-
+import { Chip } from "@mui/material";
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -26,8 +26,26 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function Post() {
+export default function Post({...props}) {
+
+   console.log('Blogtitle: ',props.blogTitle);
+  console.log('Topics: ',props.blogTopic);
+  const topics = props.blogTopic
   const [expanded, setExpanded] = React.useState(false);
+  // const [title,setTitle] = useState("");
+  // const [content,setContent] = useState("");
+  // const [summary, setSummary] = useState("");
+  // const [imageURL,setImageURl] = useState("");
+  // const [topics,setTopics] = useState([]);
+
+  // React.useEffect(()=>{
+
+  //   setTitle(blog.title)
+  //   setContent(blog.content)
+  //   setSummary(blog.summary)
+  //   setImageURl(blog.imageUrl)
+  //   setTopics(blog.topic)
+  // },[])
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -46,20 +64,24 @@ export default function Post() {
             <MoreVertIcon />
           </IconButton>
         }
-        title="Shrimp and Chorizo Paella"
+        title={props.blogTitle}
         subheader="September 14, 2016"
       />
       <CardMedia
         component="img"
         height="194"
-        image="https://www.allrecipes.com/thmb/PdwNPwZiNXr9cw8W6WQacCl6i98=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/84137-easy-paella-DDMFS-4x3-08712e61e7dc453d94673f65f9eca7d2.jpg"
+        image={props.blogImage}
         alt="Paella dish"
       />
       <CardContent>
+      {/* <div>
+      
+      {(topics).map((topic, index) => (
+        <Chip key={index} label={topic} style={{ margin: '0.5rem' }} />
+      ))}
+      </div> */}
         <Typography variant="body2" color="text.secondary">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like.
+          {props.blogSummary}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -80,7 +102,10 @@ export default function Post() {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>Method:</Typography>
+        <Typography>
+          {props.blogContent}
+        </Typography>
+          {/* <Typography paragraph>Method:</Typography>
           <Typography paragraph>
             Heat 1/2 cup of the broth in a pot until simmering, add saffron and
             set aside for 10 minutes.
@@ -106,7 +131,7 @@ export default function Post() {
           <Typography>
             Set aside off of the heat to let rest for 10 minutes, and then
             serve.
-          </Typography>
+          </Typography> */}
         </CardContent>
       </Collapse>
     </Card>

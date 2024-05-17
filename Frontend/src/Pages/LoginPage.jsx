@@ -45,7 +45,7 @@ export default function LoginPage() {
     try{
       const response = await logmein(email,password);
       if(!response){
-        alert("Login Failed! Bad Credentials",loginError)        
+        alert("Login Failed!",loginError)        
       }    
       else
       {

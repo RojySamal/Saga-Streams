@@ -2,7 +2,6 @@ import axios from "../config/axiosConfig";
 
 export const createPostAPI = async (postData, token) => {
 
-    console.log('PostDATa: ',postData);
   try {
     const response = await axios.post('blogs/createblog', postData, {
       headers: {

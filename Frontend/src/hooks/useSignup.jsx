@@ -11,6 +11,7 @@ export const useSignup = () => {
     setIsLoading(true);
     setError(null);
     let isSuccess=false;
+    let resMessg="";
     try {
       const response = await axios.post("/auth/signup", {
         firstname: firstName,
@@ -19,7 +20,9 @@ export const useSignup = () => {
         password: password,
         profileurl:profileUrl
       });
-
+      const resData= await response.data
+      resMessg = resData.message;
+      console.log('ResMessg: ',resMessg);
       if (response.status === 200) {
         console.log(response);
         const json = await response.data;
@@ -34,11 +37,12 @@ export const useSignup = () => {
       } else {
         setIsLoading(false);
         console.log('Sign Up Failed from BAckend');
+        console.log('message from backend',response.data.message);
         setError("Signup failed. Please try again.", response.data.message);
       }
     } catch (err) {
-        console.log('caught error-38');
-      setError("Signup failed. Please try again.", err);
+      console.log('message from backend',resMessg);
+      setError("Signup failed. Please try again.", resMessg);
     } finally {
       setIsLoading(false);
     }

@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-
 const userdataSchema = mongoose.Schema({
     name: {
       type: {
@@ -30,7 +29,7 @@ const userdataSchema = mongoose.Schema({
       type:String,
       required:false,
     }
-  });
+});
 
 const UserDataModel = mongoose.model("UsersData", userdataSchema);
 export default UserDataModel;

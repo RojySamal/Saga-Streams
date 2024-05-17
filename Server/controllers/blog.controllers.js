@@ -4,9 +4,7 @@ export const createBlog = async (req, res) => {
   try {
     const { title, topic, summary, imageUrl, content } = req.body;
     const userId = req.user._id; 
-
-
-
+    console.log('content: ',content);
     const newBlog = await BlogPostModel.create({
       title:title,
       topic: topic,
@@ -26,3 +24,19 @@ export const createBlog = async (req, res) => {
     res.status(500).json({ success: false, message: "Error creating blog" });
   }
 };
+
+export const readBlog = async (req,res)=>{
+  try {
+    const blogs = await BlogPostModel.find();
+    console.log('blogs from backend',blogs);
+    res.status(200).json({
+      success: true,
+      message: "All blogs retrieved successfully",
+      blogs: blogs,
+    });
+  } catch (error) {
+    console.error("Error retrieving blogs:", error);
+    res.status(500).json({ success: false, message: "Error retrieving blogs" });
+  }
+
+}

@@ -10,10 +10,14 @@ import { Routes, Route } from "react-router-dom";
 import CreatePost from "./Pages/CreatePost";
 import AboutPage from "./Pages/AboutPage";
 import SagaBlogs from "./Pages/SagaBlogs";
-// import FireBaseImgUpload from "./Components/Firebase/FireBaseImgUpload";
+import { useAuthContext } from "./hooks/useAuthContext";
 import ProfilePage from "./Pages/ProfilePage";
 
 function App() {
+
+  const {
+    state: { user },
+  } = useAuthContext();
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
@@ -21,8 +25,8 @@ function App() {
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
         <Route path="about" element={<AboutPage />} />
-        <Route path="pensaga" element={<CreatePost />} />
-        <Route path="readsaga" element={<SagaBlogs />} />
+        <Route path="pensaga" element={user?<CreatePost />:<HomePage/>} />
+        <Route path="readsaga" element={user?<SagaBlogs />:<HomePage/>} />
         <Route path="profile" element={<ProfilePage />} />
       </Route>
     </Routes>
