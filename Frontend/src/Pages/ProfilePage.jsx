@@ -7,11 +7,10 @@ import {
   MDBCardText,
   MDBCardBody,
   MDBCardImage,
-  MDBBtn,
   MDBTypography,
 } from "mdb-react-ui-kit";
-import Card from "../Components/CardPost";
 import CardPost from "../Components/CardPost";
+import Button from "@mui/material/Button";
 
 export default function ProfilePage() {
   return (
@@ -43,9 +42,12 @@ export default function ProfilePage() {
                 </div>
                 <div className="ms-3" style={{ marginTop: "130px" }}>
                   <MDBTypography tag="h5">Andy Horwitz</MDBTypography>
-                  <MDBBtn outline color="light">
+                  <Button
+                    variant="outlined"
+                    sx={{ color: "white", borderColor: "white" }}
+                  >
                     Edit Profile
-                  </MDBBtn>
+                  </Button>
                 </div>
               </div>
               <div
@@ -57,18 +59,6 @@ export default function ProfilePage() {
                     <MDBCardText className="mb-1 h5">253</MDBCardText>
                     <MDBCardText className="small text-muted mb-0">
                       Blogs
-                    </MDBCardText>
-                  </div>
-                  <div className="px-3">
-                    <MDBCardText className="mb-1 h5">1026</MDBCardText>
-                    <MDBCardText className="small text-muted mb-0">
-                      Followers
-                    </MDBCardText>
-                  </div>
-                  <div>
-                    <MDBCardText className="mb-1 h5">478</MDBCardText>
-                    <MDBCardText className="small text-muted mb-0">
-                      Following
                     </MDBCardText>
                   </div>
                 </div>

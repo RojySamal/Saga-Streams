@@ -84,7 +84,7 @@ export default function CardPost({
         </Typography>
       </CardContent>
       <Button
-        variant="contained"
+        variant="outlined"
         color="primary"
         onClick={handleNavigate}
         style={{ margin: "2%" }}

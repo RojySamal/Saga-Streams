@@ -124,7 +124,7 @@ export default function Post({
         </IconButton>
       </CardActions>
       <Button
-        variant="contained"
+        variant="text"
         color="primary"
         onClick={handleNavigate}
         style={{ margin: "2%" }}

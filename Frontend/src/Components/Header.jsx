@@ -210,6 +210,7 @@ function Header() {
                     href="/login"
                     sx={{
                       color: "white",
+                      marginRight: "10px",
                       transition: "background-color 0.3s, color 0.3s",
                       "&:hover": {
                         bgcolor: "white", // Change background to white on hover
