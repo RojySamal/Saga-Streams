@@ -85,6 +85,17 @@ export default function Post({
     blogContent: PropTypes.string.isRequired,
   };
 
+
+  // Format the date and time
+  const formattedDateTime = new Date(blogPostTime).toLocaleDateString("en-US", {
+    month: "long",
+    day: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
+
   return (
     <Card item xs={12} md={6} sx={{ mb: 2 }}>
       <CardHeader
@@ -94,7 +105,7 @@ export default function Post({
           </Avatar>
         }
         title={blogTitle}
-        subheader="September 14, 2016"
+        subheader={formattedDateTime}
       />
       <CardMedia
         component="img"
@@ -106,7 +117,7 @@ export default function Post({
         {
           <div>
             {blogTopic.map((topic, index) => (
-              <Chip key={index} label={topic} style={{ margin: "0.5rem" }} />
+              <Chip key={index} label={topic} style={{ margin: "0.5rem" }} clickable/>
             ))}
           </div>
         }

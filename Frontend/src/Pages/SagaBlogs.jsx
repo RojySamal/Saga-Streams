@@ -13,7 +13,9 @@ const SagaBlogs = () => {
       try {
         const response = await fetchBlogs();
         console.log("Blogs fetch successful:", response);
-        setBlogs(response.blogs);
+        const sortedBlogs = response.blogs.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+        setBlogs(sortedBlogs);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching blogs:", error);

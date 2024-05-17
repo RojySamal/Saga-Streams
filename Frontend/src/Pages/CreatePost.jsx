@@ -13,6 +13,7 @@ import FireBaseImgUpload from "../Components/Firebase/FireBaseImgUpload";
 const defaultTheme = createTheme();
 import Alert from "@mui/material/Alert";
 import { createPostAPI } from "../api/createBlogAPI";
+import { CircularProgress } from "@mui/material";
 
 export default function CreatePost() {
   const quillRef = useRef();
@@ -22,6 +23,8 @@ export default function CreatePost() {
   const [topic, setTopic] = useState("");
   const [summary, setSummary] = useState([]);
   const [formError, setFormError] = useState("");
+  const [loading, setLoading] = useState(false); // State to manage loading indicator
+  const [success, setSuccess] = useState(false);
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -37,6 +40,11 @@ export default function CreatePost() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setLoading(true); // Show loading indicator
+    setFormError(""); // Reset form error
+    setSuccess(false); // Reset success message
+
     console.log("Create Initiated");
     const user = localStorage.getItem("user");
     let token = "";
@@ -50,10 +58,12 @@ export default function CreatePost() {
     const lastImageUrl = await imgUploadRef.current.handleClickAndReturnUrl();
     if (lastImageUrl === null) {
       setFormError("Image upload Failed!!");
+      setLoading(false); // Hide loading indicator
       return;
     }
     if (lastImageUrl === "") {
       setFormError("Didin't receive Image!!");
+      setLoading(false); // Hide loading indicator
       return;
     }
 
@@ -62,13 +72,6 @@ export default function CreatePost() {
 
     const words = topic.split(" ").map((word) => word.trim());
     const filteredWords = words.filter((word) => word !== "");
-
-    // console.log("Title:", title);
-    // console.log("Topic:", filteredWords);
-    // console.log("Summary", summary);
-    // console.log("ImageURL:", lastImageUrl);
-    // console.log("Content:", trimmedContent);
-    // console.log("Token: ", token);
 
     const postData = {
       title: title,
@@ -81,8 +84,14 @@ export default function CreatePost() {
     try {
       const response = await createPostAPI(postData, token);
       console.log("Post created successfully:", response);
+      setSuccess(true); // Show success message
+      setTimeout(() => {
+        setSuccess(false);
+      }, 3000); // Hide success message after 3 seconds
     } catch (error) {
       console.error("Error creating post:", error);
+    } finally {
+      setLoading(false); // Hide loading indicator
     }
   };
 
@@ -148,11 +157,16 @@ export default function CreatePost() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Create
+              {loading ? <CircularProgress size={24} sx={{ color: 'black' }} /> : "Create"}
             </Button>
             {formError && (
               <Alert variant="outlined" severity="error">
                 {formError}
+              </Alert>
+            )}
+            {success && (
+              <Alert variant="outlined" severity="success">
+                Post created successfully!
               </Alert>
             )}
           </Box>
