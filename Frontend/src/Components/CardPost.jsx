@@ -15,51 +15,17 @@ import ShareIcon from "@mui/icons-material/Share";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Chip } from "@mui/material";
 import { Button } from "@mui/material";
-import { Button } from "@mui/material";
 import PropTypes from "prop-types";
-import { useState,useEffect } from "react";
 
-const ExpandMore = styled((props) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
-  marginLeft: "auto",
-  transition: theme.transitions.create("transform", {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
-
-export default function Post({
+export default function CardPost({
   blogTitle = "",
   blogTopic = [],
   blogSummary = "",
   blogImage = "",
   blogContent = "",
-  blogUser = "",
-  blogPostTime = "",
 }) {
   const navigate = useNavigate();
-  const [expanded, setExpanded] = useState(false);
-  const [userData, setUserData] = useState(null);
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const userData = await fetchUserById(blogUser);
-        setUserData(userData);
-      } catch (error) {
-        console.error("Error fetching user details:", error);
-        // Handle error if needed
-      }
-    };
-
-    if (blogUser) {
-      fetchUserData();
-    }
-  }, [blogUser]);
-
-
+  const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -73,20 +39,25 @@ export default function Post({
         blogSummary,
         blogImage,
         blogContent,
-        blogUser,
-        blogPostTime,
-        userData
       },
     });
   };
 
-  Post.propTypes = {
+  CardPost.propTypes = {
     blogTitle: PropTypes.string.isRequired,
     blogTopic: PropTypes.arrayOf(PropTypes.string),
     blogSummary: PropTypes.string.isRequired,
     blogImage: PropTypes.string,
     blogContent: PropTypes.string.isRequired,
   };
+
+  // Post.defaultProps = {
+  //   blogTopic: [],
+  //   blogContent:'',
+  //   blogImage:'',
+  //   blogTitle:'',
+  //   blogSummary:''
+  // };
 
   return (
     <Card item xs={12} md={6} sx={{ mb: 2 }}>
@@ -99,20 +70,8 @@ export default function Post({
         title={blogTitle}
         subheader="September 14, 2016"
       />
-      <CardMedia
-        component="img"
-        height="194"
-        image={blogImage}
-        alt={blogTitle}
-      />
+
       <CardContent>
-        {
-          <div>
-            {blogTopic.map((topic, index) => (
-              <Chip key={index} label={topic} style={{ margin: "0.5rem" }} />
-            ))}
-          </div>
-        }
         {
           <div>
             {blogTopic.map((topic, index) => (
@@ -124,14 +83,6 @@ export default function Post({
           {blogSummary}
         </Typography>
       </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-      </CardActions>
       <Button
         variant="contained"
         color="primary"

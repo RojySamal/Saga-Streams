@@ -3,9 +3,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-// import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -17,19 +14,14 @@ import { useLogin } from "../hooks/useLogin";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-
-
 const defaultTheme = createTheme();
 
 export default function LoginPage() {
-
-
   const navigate = useNavigate();
-  const {logmein,isLoginLoading,loginError} = useLogin();
+  const { logmein, isLoginLoading, loginError } = useLogin();
 
-
-  const [email,setEmail] = useState("");
-  const [password,setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -42,19 +34,17 @@ export default function LoginPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    try{
-      const response = await logmein(email,password);
-      if(!response){
-        alert("Login Failed!",loginError)        
-      }    
-      else
-      {
+    try {
+      const response = await logmein(email, password);
+      if (!response) {
+        alert("Login Failed!", loginError);
+      } else {
         alert("Login Successful");
-        console.log(localStorage.getItem('user'));
+        console.log(localStorage.getItem("user"));
         navigate("/");
       }
-    }catch(err){
-      alert(err)
+    } catch (err) {
+      alert(err);
     }
   };
 
@@ -64,7 +54,8 @@ export default function LoginPage() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 5,
+            marginBottom: 7,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -106,10 +97,7 @@ export default function LoginPage() {
               onChange={handlePasswordChange}
               autoComplete="current-password"
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
+
             <Button
               type="submit"
               fullWidth

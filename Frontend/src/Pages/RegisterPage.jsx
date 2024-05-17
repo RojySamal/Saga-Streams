@@ -3,15 +3,13 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSignup } from "../hooks/useSignup";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -19,7 +17,6 @@ import { useNavigate } from "react-router-dom";
 const defaultTheme = createTheme();
 
 export default function RegisterPage() {
-
   const navigate = useNavigate();
   //Destructuring the SignUp Hook
   const { signup, isLoading, error } = useSignup();
@@ -29,7 +26,7 @@ export default function RegisterPage() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const profileUrl="";
+  const profileUrl = "";
   const [loggedStatus, setLoggedStatus] = useState(false);
 
   const handleFirstNameChange = (event) => {
@@ -56,13 +53,18 @@ export default function RegisterPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await signup(firstName, lastName, email, password,profileUrl);
+      const response = await signup(
+        firstName,
+        lastName,
+        email,
+        password,
+        profileUrl
+      );
       if (!response) {
         alert("Registration Failed", error);
       } else {
         alert("Registration!!! Successful");
-        navigate("/")
-        
+        navigate("/");
       }
     } catch (err) {
       alert(err);
@@ -75,7 +77,8 @@ export default function RegisterPage() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 5,
+            marginBottom: 7,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -144,14 +147,7 @@ export default function RegisterPage() {
                   onChange={handlePasswordChange}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
-                  }
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
-              </Grid>
+              <Grid item xs={12}></Grid>
             </Grid>
             <Button
               type="submit"

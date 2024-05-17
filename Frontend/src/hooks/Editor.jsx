@@ -44,7 +44,6 @@ const Editor = forwardRef(
       ref.current.getContent = () => {
         return quill.root.innerHTML;
       };
-      
 
       return () => {
         ref.current = null;
