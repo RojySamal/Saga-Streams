@@ -1,0 +1,8 @@
+.text-reset{
+    text-decoration: none;
+}
+
+
+.p-link:hover {
+    color: #b6f538; /* Change to the desired grey color */
+  }

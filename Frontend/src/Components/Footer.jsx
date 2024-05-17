@@ -16,6 +16,7 @@ import { FaHome } from "react-icons/fa";
 import { IoMdMail } from "react-icons/io";
 import { FaPhoneAlt } from "react-icons/fa";
 import { FaPrint } from "react-icons/fa6";
+import "../styles/footer.css"
 import NestCamWiredStandIcon from "@mui/icons-material/NestCamWiredStand";
 
 export default function Footer() {
@@ -115,8 +116,10 @@ export default function Footer() {
 
             <MDBCol md="4" lg="3" xl="3" className="mx-auto mb-md-0 mb-4">
               <h6 className="text-uppercase fw-bold mb-4">Contact</h6>
-              <p>
-                <FaHome /> Silicon University, Bhubaneswar, Odisha
+              <p className="p-link">
+                <a href="https://silicon.ac.in/" target="_blank" className="text-reset">
+                  <FaHome /> Silicon University, Bhubaneswar, Odisha
+                </a>
               </p>
               <p>
                 <IoMdMail /> sagastreams@gmail.com
