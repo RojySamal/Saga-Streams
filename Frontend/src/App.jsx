@@ -29,7 +29,7 @@ function App() {
         <Route path="pensaga" element={user?<CreatePost />:<HomePage/>} />
         <Route path="readsaga" element={user?<SagaBlogs />:<HomePage/>} />
         <Route path="profile" element={<ProfilePage />} />
-        <Route path="blog" element={<BlogPage />} />
+        <Route path="blog" element={user?<BlogPage />:<HomePage/>} />
       </Route>
     </Routes>
   );

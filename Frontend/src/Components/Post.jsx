@@ -1,6 +1,7 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
+import { useNavigate } from "react-router-dom";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
@@ -13,7 +14,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Chip } from "@mui/material";
-import {Link} from "@mui/material";
+import {Button} from "@mui/material";
 import PropTypes from "prop-types";
 
 const ExpandMore = styled((props) => {
@@ -27,13 +28,25 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function Post({blogTitle, blogTopic, blogSummary, blogImage, blogContent}) {
+export default function Post({blogTitle="", blogTopic=[], blogSummary="", blogImage="", blogContent=""}) {
 
-
+  const navigate = useNavigate();
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
+  };
+
+  const handleNavigate = () => {
+    navigate("/blog", {
+      state: {
+        blogTitle,
+        blogTopic,
+        blogSummary,
+        blogImage,
+        blogContent,
+      },
+    });
   };
 
   Post.propTypes = {
@@ -44,9 +57,13 @@ export default function Post({blogTitle, blogTopic, blogSummary, blogImage, blog
     blogContent: PropTypes.string.isRequired,
   };
 
-  Post.defaultProps = {
-    blogTopic: [],
-  };
+  // Post.defaultProps = {
+  //   blogTopic: [],
+  //   blogContent:'',
+  //   blogImage:'',
+  //   blogTitle:'',
+  //   blogSummary:''
+  // };
 
   return (
     <Card item xs={12} md={6} sx={{ mb: 2 }}>
@@ -89,16 +106,14 @@ export default function Post({blogTitle, blogTopic, blogSummary, blogImage, blog
           <ShareIcon />
         </IconButton>
       </CardActions>
-      <Link
-        variant="subtitle1"
-        href="#"
-        style={{
-          textDecoration: "none",
-          paddingLeft: "2%",
-        }}
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={handleNavigate}
+        style={{ margin: "2%" }}
       >
-        Continue Reading....
-      </Link>
+        Continue Reading...
+      </Button>
     </Card>
   );
 }

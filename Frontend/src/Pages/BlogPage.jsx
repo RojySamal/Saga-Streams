@@ -1,6 +1,7 @@
 import * as React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
+import { useLocation } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -18,6 +19,9 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 const defaultTheme = createTheme();
 
 export default function BlogPage() {
+
+  const location = useLocation();
+  const { blogTitle, blogTopic, blogSummary, blogImage, blogContent } = location.state;
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="md">
