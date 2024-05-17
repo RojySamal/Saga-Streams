@@ -206,8 +206,12 @@ function Header() {
             <Tooltip>
               {!user ? (
                 <>
-                  <Button href="/login">SignIn</Button>
-                  <Button href="/register">SignUp</Button>
+                  <Button href="/login" sx={{ color: "white" }}>
+                    SignIn
+                  </Button>
+                  <Button href="/register" sx={{ color: "white" }}>
+                    SignUp
+                  </Button>
                 </>
               ) : (
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Typography } from "@mui/material";
-import Pagination from "@mui/material/Pagination";
 import Post from "../Components/Post";
 import { fetchBlogs } from "../api/readBlogAPI";
 
@@ -46,9 +45,6 @@ const SagaBlogs = () => {
                 blogContent={blog.content}
               />
             ))}
-          </div>
-          <div style={{ marginLeft: "30%" }}>
-            <Pagination count={10} showFirstButton showLastButton />
           </div>
         </>
       )}
