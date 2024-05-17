@@ -1,33 +1,70 @@
+/* Styles for the container */
 .about-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: linear-gradient(to right, #ece9e6, #ffffff);
-    padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* Styles for headings */
+h1, h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Styles for paragraphs */
+p {
+  color: #666;
+  line-height: 1.6;
+}
+
+/* Styles for links */
+a {
+  color: #007bff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: #0056b3;
+}
+
+/* Basic animation for list items */
+ul li {
+  transition: transform 0.3s;
+}
+
+ul li:hover {
+  transform: translateX(5px);
+}
+
+/* Animation for heading */
+h1 {
+  animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
   }
-  
-  .about-paper {
-    padding: 40px;
-    max-width: 800px;
-    margin: 20px;
-    border-radius: 15px;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .about-box {
-    text-align: center;
+}
+
+/* Animation for paragraphs */
+p {
+  animation: slideIn 1s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  
-  .about-title {
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 20px;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .about-content {
-    font-size: 18px;
-    color: #555;
-    line-height: 1.6;
-    margin-bottom: 15px;
-  }
-  
+}
