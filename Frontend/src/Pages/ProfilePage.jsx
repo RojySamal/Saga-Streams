@@ -10,7 +10,8 @@ import {
   MDBBtn,
   MDBTypography,
 } from "mdb-react-ui-kit";
-import Post from "../Components/Post";
+import Card from "../Components/CardPost";
+import CardPost from "../Components/CardPost";
 
 export default function ProfilePage() {
   return (
@@ -111,17 +112,6 @@ export default function ProfilePage() {
                       <hr />
                       <MDBRow>
                         <MDBCol sm="3">
-                          <MDBCardText>Mobile</MDBCardText>
-                        </MDBCol>
-                        <MDBCol sm="9">
-                          <MDBCardText className="text-muted">
-                            (098) 765-4321
-                          </MDBCardText>
-                        </MDBCol>
-                      </MDBRow>
-                      <hr />
-                      <MDBRow>
-                        <MDBCol sm="3">
                           <MDBCardText>Address</MDBCardText>
                         </MDBCol>
                         <MDBCol sm="9">
@@ -138,7 +128,7 @@ export default function ProfilePage() {
                     Recent Blogs
                   </MDBCardText>
                 </div>
-                <Post />
+                <CardPost />
                 ...jitne blogs post kiya hoga wi sab
               </MDBCardBody>
             </MDBCard>

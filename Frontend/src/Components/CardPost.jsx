@@ -17,18 +17,7 @@ import { Chip } from "@mui/material";
 import { Button } from "@mui/material";
 import PropTypes from "prop-types";
 
-const ExpandMore = styled((props) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
-  marginLeft: "auto",
-  transition: theme.transitions.create("transform", {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
-
-export default function Post({
+export default function CardPost({
   blogTitle = "",
   blogTopic = [],
   blogSummary = "",
@@ -54,7 +43,7 @@ export default function Post({
     });
   };
 
-  Post.propTypes = {
+  CardPost.propTypes = {
     blogTitle: PropTypes.string.isRequired,
     blogTopic: PropTypes.arrayOf(PropTypes.string),
     blogSummary: PropTypes.string.isRequired,
@@ -81,12 +70,7 @@ export default function Post({
         title={blogTitle}
         subheader="September 14, 2016"
       />
-      <CardMedia
-        component="img"
-        height="194"
-        image={blogImage}
-        alt={blogTitle}
-      />
+
       <CardContent>
         {
           <div>
@@ -99,14 +83,6 @@ export default function Post({
           {blogSummary}
         </Typography>
       </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-      </CardActions>
       <Button
         variant="contained"
         color="primary"
