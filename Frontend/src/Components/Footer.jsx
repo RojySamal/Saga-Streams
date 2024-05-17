@@ -107,8 +107,8 @@ export default function Footer() {
                 </a>
               </p>
               <p>
-                <a href="#!" className="text-reset">
-                  Help
+                <a href="/feedback" className="text-reset">
+                  FeedBack
                 </a>
               </p>
             </MDBCol>

@@ -206,10 +206,30 @@ function Header() {
             <Tooltip>
               {!user ? (
                 <>
-                  <Button href="/login" sx={{ color: "white" }}>
+                  <Button
+                    href="/login"
+                    sx={{
+                      color: "white",
+                      transition: "background-color 0.3s, color 0.3s",
+                      "&:hover": {
+                        bgcolor: "white", // Change background to white on hover
+                        color: "black", // Change text color to black on hover
+                      },
+                    }}
+                  >
                     SignIn
                   </Button>
-                  <Button href="/register" sx={{ color: "white" }}>
+                  <Button
+                    href="/register"
+                    sx={{
+                      color: "white",
+                      transition: "background-color 0.3s, color 0.3s",
+                      "&:hover": {
+                        bgcolor: "white", // Change background to white on hover
+                        color: "black", // Change text color to black on hover
+                      },
+                    }}
+                  >
                     SignUp
                   </Button>
                 </>

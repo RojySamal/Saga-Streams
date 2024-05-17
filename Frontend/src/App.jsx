@@ -15,7 +15,6 @@ import ProfilePage from "./Pages/ProfilePage";
 import BlogPage from "./Pages/BlogPage";
 
 function App() {
-
   const {
     state: { user },
   } = useAuthContext();
@@ -26,10 +25,10 @@ function App() {
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
         <Route path="about" element={<AboutPage />} />
-        <Route path="pensaga" element={user?<CreatePost />:<HomePage/>} />
-        <Route path="readsaga" element={user?<SagaBlogs />:<HomePage/>} />
+        <Route path="pensaga" element={user ? <CreatePost /> : <HomePage />} />
+        <Route path="readsaga" element={user ? <SagaBlogs /> : <HomePage />} />
         <Route path="profile" element={<ProfilePage />} />
-        <Route path="blog" element={user?<BlogPage />:<HomePage/>} />
+        <Route path="blog" element={user ? <BlogPage /> : <HomePage />} />
       </Route>
     </Routes>
   );
