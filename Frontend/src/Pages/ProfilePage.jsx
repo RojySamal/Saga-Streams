@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   MDBCol,
   MDBContainer,
@@ -13,6 +13,23 @@ import CardPost from "../Components/CardPost";
 import Button from "@mui/material/Button";
 
 export default function ProfilePage() {
+  const [user, setUser] = useState({ name: "", email: "" });
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const userData = JSON.parse(storedUser).user;
+      console.log('user data: ',userData);
+      console.log('user name: ',userData.firstname);
+      if (userData) {
+        setUser({
+          name: `${userData.firstname || ""} ${userData.lastname || ""}`,
+          email: userData.email || "",
+        });
+      }
+    }
+  }, []);
+
   return (
     <div
       className="gradient-custom-2"
@@ -41,7 +58,7 @@ export default function ProfilePage() {
                   />
                 </div>
                 <div className="ms-3" style={{ marginTop: "130px" }}>
-                  <MDBTypography tag="h5">Andy Horwitz</MDBTypography>
+                  <MDBTypography tag="h5">{user.name}</MDBTypography>
                   <Button
                     variant="outlined"
                     sx={{ color: "white", borderColor: "white" }}
@@ -73,7 +90,7 @@ export default function ProfilePage() {
                         </MDBCol>
                         <MDBCol sm="9">
                           <MDBCardText className="text-muted">
-                            Johnatan Smith
+                            {user.name}
                           </MDBCardText>
                         </MDBCol>
                       </MDBRow>
@@ -84,7 +101,7 @@ export default function ProfilePage() {
                         </MDBCol>
                         <MDBCol sm="9">
                           <MDBCardText className="text-muted">
-                            example@example.com
+                            {user.email}
                           </MDBCardText>
                         </MDBCol>
                       </MDBRow>
