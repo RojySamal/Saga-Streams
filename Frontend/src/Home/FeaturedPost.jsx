@@ -27,7 +27,7 @@ function FeaturedPost(props) {
             </Typography>
             <Link
               variant="subtitle1"
-              href="#"
+              href="/apple"
               style={{
                 textDecoration: "none",
                 paddingLeft: "2%",

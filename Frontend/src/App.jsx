@@ -14,6 +14,8 @@ import { useAuthContext } from "./hooks/useAuthContext";
 import ProfilePage from "./Pages/ProfilePage";
 import BlogPage from "./Pages/BlogPage";
 import Feedback from "./Pages/Feedback";
+import MainFeature from "./Home/PostHome";
+import ApplePost from "./Home/ApplePost";
 
 function App() {
   const {
@@ -31,6 +33,8 @@ function App() {
         <Route path="profile" element={<ProfilePage />} />
         <Route path="blog" element={user ? <BlogPage /> : <HomePage />} />
         <Route path="feedback" element={<Feedback />} />
+        <Route path="mainfeature" element={<MainFeature />} />
+        <Route path="apple" element={<ApplePost />} />
       </Route>
     </Routes>
   );

@@ -12,9 +12,9 @@ import Sidebar from "./Sidebar";
 import Post from "../Components/Post";
 
 const mainFeaturedPost = {
-  title: "Title of a longer featured blog post",
+  title: "16 little UI design rules that make a big impact",
   description:
-    "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
+    "A UI design case study to redesign an example user interface using logical rules or guidelines.",
   image: "https://source.unsplash.com/random?wallpapers",
   imageText: "main image description",
   linkText: "Continue reading…",
@@ -22,11 +22,11 @@ const mainFeaturedPost = {
 
 const featuredPosts = [
   {
-    title: "Featured post",
-    date: "Nov 12",
-    description:
-      "This is a wider card with supporting text below as a natural lead-in to additional content.",
-    image: "https://source.unsplash.com/random?wallpapers",
+    title: "Can You Pass This Apple-Orange Interview At Apple 🍎?",
+    date: "Mar 14, 2024",
+    description: "The iPhone Company’s Interview Question.",
+    image:
+      "https://miro.medium.com/v2/resize:fit:1100/format:webp/1*3_NjzkVEbMhPwJTH9BajWw.png",
     imageLabel: "Image Text",
   },
   {
@@ -67,8 +67,20 @@ export default function HomePage() {
           </Grid>
           <Grid container spacing={2} columns={16} sx={{ mt: 0.5 }}>
             <Grid item xs={10}>
-              <Post blogTitle="Dummy" blogContent="Dummy" blogTopic={[]} blogImage="" blogSummary=""/>
-              <Post blogTitle="Dummy" blogContent="Dummy" blogTopic={[]} blogImage="" blogSummary=""/>
+              <Post
+                blogTitle="Dummy"
+                blogContent="Dummy"
+                blogTopic={[]}
+                blogImage=""
+                blogSummary=""
+              />
+              <Post
+                blogTitle="Dummy"
+                blogContent="Dummy"
+                blogTopic={[]}
+                blogImage=""
+                blogSummary=""
+              />
             </Grid>
             <Grid item xs={6}>
               <Sidebar
