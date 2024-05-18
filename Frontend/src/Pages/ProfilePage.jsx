@@ -11,7 +11,7 @@ import {
 } from "mdb-react-ui-kit";
 import CardPost from "../Components/CardPost";
 import Button from "@mui/material/Button";
-
+import dummyimage from '../assets/images/aiimage.avif'
 export default function ProfilePage() {
   const [user, setUser] = useState({ name: "", email: "" });
 
@@ -135,7 +135,7 @@ export default function ProfilePage() {
                     Recent Blogs
                   </MDBCardText>
                 </div>
-                <CardPost />
+                <CardPost blogTitle="Title Loading" blogSummary="Summary is loading from backend" blogImage={dummyimage} />
                 ...jitne blogs post kiya hoga wi sab
               </MDBCardBody>
             </MDBCard>
