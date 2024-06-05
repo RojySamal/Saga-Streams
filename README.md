@@ -1,4 +1,4 @@
-# [Saga Streams](https://github.com/RojySamal/Saga-Stream)
+# [Saga Streams](https://github.com/RojySamal/Saga-Streams/tree/main)
 
 Welcome to Saga Streams, a platform transforming content discovery and creation. Join our vibrant community of writers and readers, and enjoy easy access to high-quality content in today's digital age.
 
