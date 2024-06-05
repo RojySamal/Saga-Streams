@@ -50,9 +50,8 @@ Blog Page
 
 ### Links
 
-- live site: [link](link!!)
-- frontend repo: [link](link!!)
-- backend repo: [link](link!!)
+- frontend repo: [link](https://github.com/RojySamal/Saga-Streams/tree/main/Frontend)
+- backend repo: [link](https://github.com/RojySamal/Saga-Streams/tree/main/Server)
 
 ## Our process
 
