@@ -10,6 +10,7 @@ import MainFeaturedPost from "./MainFeaturedPost";
 import FeaturedPost from "./FeaturedPost";
 import Sidebar from "./Sidebar";
 import Post from "../Components/Post";
+import imageDummy from '../assets/images/aiimage.avif'
 
 const mainFeaturedPost = {
   title: "16 little UI design rules that make a big impact",
@@ -71,15 +72,15 @@ export default function HomePage() {
                 blogTitle="Dummy"
                 blogContent="Dummy"
                 blogTopic={[]}
-                blogImage=""
-                blogSummary=""
+                blogImage={imageDummy}
+                blogSummary="Summary is loading from the backend"
               />
               <Post
                 blogTitle="Dummy"
                 blogContent="Dummy"
                 blogTopic={[]}
-                blogImage=""
-                blogSummary=""
+                blogImage={imageDummy}
+                blogSummary="Summary is loading from the backend"
               />
             </Grid>
             <Grid item xs={6}>

@@ -64,7 +64,7 @@ export default function CardPost({
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
+            {blogTitle}
           </Avatar>
         }
         title={blogTitle}
