@@ -72,7 +72,7 @@ Blog Page
 
 ## Author
 
-Crate&Barrel is a Mean and Mern project built by a team of 6 aspiring developers:
+Crate&Barrel is a Mean and Mern project built by a team of 4 aspiring developers:
 
 - [Rojy Samal](https://github.com/RojySamal)
 - [Chandan Kumar Pandey](https://github.com/iamcosmo)
